@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Riccardo Campo</title>
+    <style>
+        @font-face
+        {
+            font-family : "Ubuntu-Regular";
+            src: url('Ubuntu-Regular.woff');
+        }
+        :root {
+            --background: #051e15;
+            --main: #cdf6e7;
+            --accent: #e0e271;
+        }
+        body, button {
+            background-color: var(--background);
+            color: var(--main);
+            font-family: 'Ubuntu-Regular';
+            text-align: left;
+        }
+        div.mainContainer {
+            position: absolute;
+            border: 2px solid var(--main);
+            border-top: 0px;
+            border-bottom: 0px;
+            display: flex;
+            flex-direction: column;
+            width: 30vw;
+            left: 35vw;
+            top: 20vh;
+        } @media (max-width: 1200px) {
+            div.mainContainer {
+                width: 60vw;
+                left: 20vw;
+                top: 15vh;
+            }
+        } @media (max-width: 600px) {
+            div.mainContainer {
+                width: 80vw;
+                left: 10vw;
+                top: 10vh;
+            }
+        }
+        div.header {
+            border-top: 2px solid var(--main);
+            border-bottom: 2px solid var(--main);
+            background-color: var(--background);
+            z-index: 2;
+        }
+        button, a.download {
+            font-size: 1.2pc;
+            font-weight: bold;
+            transition: all 0.2s;
+            border: 0px;
+            border-bottom: 2px solid var(--main);
+        }
+        button:hover, a.download:hover {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+        }
+        .block, button {
+            padding-left: 10px
+        }
+        .aboutme, .personal, .more-personal, .contacts {
+            display: none;
+        }
+        div.aboutme {
+            z-index: -2;
+        }
+        div.personal {
+            z-index: -3;
+        }
+        div.more-personal {
+            z-index: -4;
+        }
+        div.contacts {
+            z-index: -5;
+        }
+        .section {
+            transition: all 0.3s;
+            background-color: var(--background);
+            border-bottom: 2px solid var(--main);
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        ul {
+            padding-left: 15px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+        a {
+            color: var(--main);
+            text-decoration-color: var(--accent);
+            font-weight: bold;
+        }
+        a.download {
+            text-decoration: none;
+        }
+    </style>
+</head>
+    <body>
+        <div class="mainContainer">
+            <div class="header block">
+                <h1 style="margin-bottom: 0px;">Riccardo Campo</h1>
+                <h2 style="margin-top: 0px; color: var(--accent)">software developer</h2>
+            </div>
+            <button class="aboutme-button home">About me</button>
+            <button id="home-button" class="aboutme">Less about me</button>
+            <div id="aboutme" class="aboutme section block">
+                <ul>
+                    <li id="years">I've worked as a backend developer for YEARS years</li>
+                    <li>I love asynchronous processing, infrastructure and architecture design</li>
+                    <li>I am an Open Source enthusiast</li>
+                </ul>
+            </div>
+            <button class="aboutme-button personal">Less about me</button>
+            <button class="personal-button aboutme">More about me</button>
+            <div id="personal" class="personal section block">
+                <ul>
+                    <li>I like woodworking</li>
+                    <li>I am passionate about music, mainly as a listener, but I also play the guitar</li>
+                    <li>I live in Palermo</li>
+                </ul>
+            </div>
+            <button id="more-personal-button" class="personal">Even more about me</button>
+            <button class="personal-button more-personal">Less about me</button>
+            <div id="more-personal" class="more-personal section block">
+                We might as well chat
+            </div>
+            <button id="contacts-button">Contacts</button>
+            <div id="contacts" class="contacts section block">
+                <ul>
+                    <li><a href="mailto:riccardocampo@tutanota.com">riccardocampo@tutanota.com</a></li>
+                    <li><a href="https://www.linkedin.com/in/riccardocampo/" target="_blank">LinkedIn</a></li>
+                </ul>
+            </div>
+            <a href="campo_riccardo_resume.pdf" class="download block">CV</a>
+        </div>
+    </body>
+    <script>
+        const x = 5;
+        const homeButton = document.getElementById("home-button");
+        const aboutMeButtons = document.getElementsByClassName("aboutme-button");
+        const personalButtons = document.getElementsByClassName("personal-button");
+        const morePersonalButton = document.getElementById("more-personal-button");
+        const contactsButton = document.getElementById("contacts-button");
+        const homeElements = document.getElementsByClassName("home");
+        const aboutmeElements = document.getElementsByClassName("aboutme");
+        const personalElements = document.getElementsByClassName("personal");
+        const morePersonalElements = document.getElementsByClassName("more-personal");
+        const contactsElements = document.getElementsByClassName("contacts");
+        let timeouts = {};
+
+        function toggleElements(onElements) {
+            onElements.forEach(
+                (element) => {
+                    // Render the element to get its height, use that to set the margin, force it to re-render to trigger the transition.
+                    if (element.nodeName === "DIV") {
+                        element.style.display = "block";
+                        element.style["margin-top"] = -element.offsetHeight + "px";
+                        element.style.display = "none";
+                        element.offsetHeight;
+                    }
+                    element.style.display = "block";
+                    element.offsetHeight;
+                    element.style["margin-top"] = "0px";
+                    clearTimeout(timeouts[element.id])
+                }
+            );
+            [...homeElements, ...aboutmeElements, ...personalElements, ...contactsElements, ...morePersonalElements].forEach(
+                (element) => {
+                    if (!onElements.includes(element)) {
+                        if (element.nodeName === "DIV") {
+                            element.style["margin-top"] = -element.offsetHeight + "px";
+                            timeouts[element.id] = setTimeout(() => {element.style.display = "none";}, 300);         
+                        } else
+                            element.style.display = "none";
+                    }
+                }
+            );
+        };
+
+        homeButton.onclick = function() {
+            toggleElements(Array.from(homeElements));
+        };
+
+        for (let button of aboutMeButtons) {
+            button.onclick = function() {
+                toggleElements(Array.from(aboutmeElements));
+            };
+        }
+
+        for (let button of personalButtons) {
+            button.onclick = function() {
+                toggleElements(Array.from(personalElements));
+            };
+        }
+
+        morePersonalButton.onclick = function () {
+            toggleElements([...morePersonalElements, ...contactsElements]);
+        };
+
+        contactsButton.onclick = function() {
+            toggleElements([...contactsElements, ...homeElements]);
+        };
+
+        const workYears =  new Date(new Date() - new Date("2019-02-04")).getFullYear() - 1970;
+        const workYearsLine = document.getElementById("years");
+        workYearsLine.innerHTML = workYearsLine.innerHTML.replace("YEARS", workYears);
+    </script>
+</html>
