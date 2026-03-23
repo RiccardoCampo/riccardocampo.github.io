@@ -3,6 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://riccardocampo.github.io/" />
+    <meta property="og:title" content="Riccardo Campo" />
+    <meta property="og:description" content="Riccardo Campo, software developer" />
+    <meta property="og:image" content="https://riccardocampo.github.io/preview.png" />
+    <meta property="og:image:width" content="548" />
+    <meta property="og:image:height" content="221" />
+
     <title>Riccardo Campo</title>
     <style>
         @font-face
@@ -100,10 +109,17 @@
         a.download {
             text-decoration: none;
         }
+        div.cover {
+            height: 100vh;
+            margin-top:-100vh;
+            z-index: 10;
+            background-color: var(--background);
+        }
     </style>
 </head>
     <body>
         <div class="mainContainer">
+            <div class="cover"></div>
             <div class="header block">
                 <h1 style="margin-bottom: 0px;">Riccardo Campo</h1>
                 <h2 style="margin-top: 0px; color: var(--accent)">software developer</h2>
@@ -207,7 +223,8 @@
         };
 
         contactsButton.onclick = function() {
-            toggleElements([...contactsElements, ...homeElements]);
+            if (contactsElements[0].style.display === "none")
+                toggleElements([...contactsElements, ...homeElements]);
         };
 
         const workYears =  new Date(new Date() - new Date("2019-02-04")).getFullYear() - 1970;
