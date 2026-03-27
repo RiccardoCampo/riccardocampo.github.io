@@ -128,19 +128,20 @@
             <button id="home-button" class="aboutme">Less about me</button>
             <div id="aboutme" class="aboutme section block">
                 <ul>
-                    <li id="years">I've worked as a backend developer for YEARS years</li>
+                    <li id="years">I have worked as a backend developer for YEARS years</li>
+                    <li>I am currently working at Ren Systems</li>
                     <li>I love asynchronous processing, infrastructure and architecture design</li>
-                    <li>I am an Open Source enthusiast</li>
+                    <li>I am an open-source enthusiast</li>
                 </ul>
             </div>
             <button class="aboutme-button personal">Less about me</button>
             <button class="personal-button aboutme">More about me</button>
             <div id="personal" class="personal section block">
                 <ul>
-                    <li>I like woodworking</li>
-                    <li>I am passionate about music, mainly as a listener, but I also play the guitar</li>
                     <li>I live in Palermo</li>
-                    <li>I made a WebApp that helps you catalog your music: <a href="https://bands-music.netlify.app/" target="_blank">Bands</a></li>
+                    <li>I made a web app that helps you catalog your music: <a href="https://bands-music.netlify.app/" target="_blank">Bands</a></li>
+                    <li>I am passionate about music, mainly as a listener, but I also play the guitar</li>
+                    <li>I like woodworking</li>
                 </ul>
             </div>
             <button id="more-personal-button" class="personal">Even more about me</button>
@@ -156,11 +157,10 @@
                     <li><a href="https://github.com/RiccardoCampo" target="_blank">GitHub</a></li>
                 </ul>
             </div>
-            <a href="campo_riccardo_resume.pdf" class="download block">CV</a>
+            <a href="riccardo_campo_resume.pdf" class="download block">Resume</a>
         </div>
     </body>
     <script>
-        const x = 5;
         const homeButton = document.getElementById("home-button");
         const aboutMeButtons = document.getElementsByClassName("aboutme-button");
         const personalButtons = document.getElementsByClassName("personal-button");
@@ -229,6 +229,6 @@
 
         const workYears =  new Date(new Date() - new Date("2019-02-04")).getFullYear() - 1970;
         const workYearsLine = document.getElementById("years");
-        workYearsLine.innerHTML = workYearsLine.innerHTML.replace("YEARS", workYears);
+        workYearsLine.innerHTML = workYearsLine.innerHTML.replace("YEARS", workYears ?? 7);
     </script>
 </html>
