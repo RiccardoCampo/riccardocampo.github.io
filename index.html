@@ -223,7 +223,7 @@
         };
 
         contactsButton.onclick = function() {
-            if (contactsElements[0].style.display === "none")
+            if (contactsElements[0].style.display === "none" || contactsElements[0].style.display === "")
                 toggleElements([...contactsElements, ...homeElements]);
         };
 
